@@ -129,6 +129,7 @@ public class WindTurbine {
             } else if (input.equals("4")){
                 System.out.println("Lower latitude:");
                 input = keyboard.nextLine();
+                new
 
             }
 
