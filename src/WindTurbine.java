@@ -47,20 +47,18 @@ public class WindTurbine {
         return sum;
     }
     public static int turbinesInLatitude(ArrayList<String[]> windData, double a, double b) {
-        ArrayList<Double> latitudes = new ArrayList<Double>();
-        for (String[] row : windData){
-            double latitude = Double.parseDouble(row[10]);
-            latitudes.add(latitude);
-        }
         int count = 0;
-        for (double latitude : latitudes){
-            if (latitude >= a && latitude <= b){
-                count++;
+        for (String[] row : windData.subList(1, windData.size())) {
+            double latitude = Double.parseDouble(row[11].replace("\"", ""));
+            if (latitude >= a && latitude <= b) {
+                count += Double.parseDouble(row[9].replace("\"",""));
             }
         }
         return count;
-
     }
+        
+
+    
 
 
 
@@ -73,9 +71,11 @@ public class WindTurbine {
             System.out.println("1. Read Data From File");
             System.out.println("2. Add a wind turbine location");
             System.out.println("3. Total Number of Turbines");
+            System.out.println("4. Wind turbines between latitudes"); 
+            //It looks like latitude and longitude have been swapped in the csv.q
+            //As in, longitude is called latitude and latitude is called longitude. 
             System.out.println("5. Save Data");
             System.out.println("Q. Quit");
-
             input = keyboard.nextLine();
             input = input.toUpperCase();
 
@@ -127,9 +127,14 @@ public class WindTurbine {
             } else if (input.equals("3")) {
                 System.out.println("This data set contains " + countWindTurbines(windData) + " wind turbines.");
             } else if (input.equals("4")){
-                System.out.println("Lower latitude:");
+                System.out.println("Lower latitude bound:");
                 input = keyboard.nextLine();
-                new
+                double a = Double.parseDouble(input);
+                System.out.println("Upper latitude bound:");
+                input = keyboard.nextLine();
+                double b = Double.parseDouble(input);
+                System.out.println("Number of wind turbines between " + a + " and " + b + ": " + turbinesInLatitude(windData, a, b));
+
 
             }
 
